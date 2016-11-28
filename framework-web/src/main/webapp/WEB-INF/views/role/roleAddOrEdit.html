@@ -1,0 +1,78 @@
+<style>
+.form_label {
+	width: 20%;
+}
+
+.from_text {
+	width: 30%;
+}
+
+.form-input {
+	width: 30%;
+}
+
+.easyui-panel {
+	position: relative;
+}
+
+.dialog-button {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+</style>
+<div class="easyui-panel" style="width: 100%; height: 100%;">
+	<form id="roleForm" method="post">
+		<input type="hidden" name="id" value="${roleEntity.id?if_exists}" /> <input type="hidden" name="version" value="${roleEntity.version?if_exists}" />
+		<table cellpadding="5">
+			<tr>
+				<td class="form_label">角色名称:</td>
+				<td class="from_text"><input class="easyui-textbox form-input" prompt="请输入角色名称..." type="text" name="name" data-options="required:true,validType:'isNotBlank'" value="${roleEntity.name?if_exists}" /></td>
+				<td class="form_label">角色编号:</td>
+				<td class="from_text"><input class="easyui-textbox form-input" prompt="请输入角色编号..." type="text" name="code" data-options="required:true,validType:'EnglishCheck',validType:'isNotBlank'" value="${roleEntity.code?if_exists}" /></td>
+			</tr>
+			<tr>
+				<td class="form_label">是否启用:</td>
+				<td><select id="isDel" class="easyui-combobox" name="isDel" style="width: 100%" value="${roleEntity.isDel?if_exists}" prompt="请选择是否启用..." data-options="required:true">
+						<option value=""></option>
+						<option value="0">是</option>
+						<option value="1">否</option>
+				</select></td>
+			</tr>
+		</table>
+	</form>
+	<div class="dialog-button messager-button">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelForm()">取消</a>
+	</div>
+</div>
+<script>
+	var isDel = '${roleEntity.isDel?default("")}';
+	$(document).ready(function() {
+		if (isDel) {
+			$("#isDel").val(isDel);
+		}
+	});
+	function submitForm() {
+		var flag=$('#roleForm').form('validate');
+		if (flag){
+			ajaxPost(basePath + "/role/saveOrUpdate",$("#roleForm").serializeArray(),function(data){
+				var result = data;
+				if (result.code == "01") {
+					$.messager.alert('提示', '保存成功！');
+					if (_roleWin) {
+						onSearch();
+						_roleWin.window('destroy');
+					}
+				} else {
+					$.messager.alert('提示', '保存失败！');
+				}
+			});
+		}
+	}
+	function cancelForm() {
+		if (_roleWin) {
+			_roleWin.window('destroy');
+		}
+	}
+</script>

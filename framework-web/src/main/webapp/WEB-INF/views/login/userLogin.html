@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>即时报告管理系统</title>
+	 <link rel="shortcut icon" type="image/x-icon" href="${basePath}/resources/BIS/main/image/logo.ico" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="${basePath}/resources/libs/unslider/css/unslider.css">
+    <link rel="stylesheet" type="text/css" href="${basePath}/resources/libs/unslider/css/unslider-dots.css">
+    <link rel="stylesheet" type="text/css" href="${basePath}/resources/libs/font-awesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="${basePath}/resources/common/main/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="${basePath}/resources/common/main/css/main.css">
+    <script type="text/javascript" src="${basePath}/resources/libs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="${basePath}/resources/libs/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="${basePath}/resources/libs/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="${basePath}/resources/libs/easyui/easyui-lang-zh_CN.js"></script>
+
+    <script type="text/javascript" src="${basePath}/resources/libs/unslider/js/unslider-min.js"></script>
+
+    <script type="text/javascript" src="${basePath}/resources/common/base/js/easyui-ztree.js"></script>
+    <script type="text/javascript" src="${basePath}/resources/common/base/js/base.js"></script>
+    <script type="text/javascript" src="${basePath}/resources/table/query/table.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="${basePath}/resources/libs/easyui/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="${basePath}/resources/libs/easyui/themes/icon.css">
+	
+	<script>
+		var basePath = "${basePath}";
+	</script>
+</head>
+<script type="text/javascript" charset="UTF-8">
+	$.fn.extend({
+		animateCss: function (animationName) {
+			var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+			$(this).addClass('animated ' + animationName).one(animationEnd, function() {
+				$(this).removeClass('animated ' + animationName);
+			});
+		}
+	});
+
+	var loginAndRegDialog;
+	document.onkeydown = function (event) {
+		var e = event || window.event || arguments.callee.caller.arguments[0];
+		if (e && e.keyCode == 13) { // enter 键
+			//要做的事情
+			from_submit();
+		}
+	};
+	function from_submit(){
+		
+		$.post(basePath+"/userLogin/selectUser",$("#loginInputForm").serializeArray(),function(data){
+			if(data.code=="01"){
+				window.location.href=basePath+"/main"
+			}else if(data.code=="02"){
+				$.messager.alert('提示',"用户登录信息错误,或者账户已被禁用");// '不存在或该登陆名已经被禁用');
+			}else if(data.code=="03"){
+				$.messager.alert('提示',"用户登录信息错误,或者账户已被禁用"); //'用户名或密码错误');
+			}else if(data.code=="04"){
+				$.messager.alert('提示', "用户登录信息错误,或者账户已被禁用");//'该账号禁止2小时内禁止登陆');
+			}
+		})
+	}
+
+	$(function () {
+		var num=Math.floor(Math.random()*5+1);
+		$("#backPicId").attr("src","${basePath}/resources/BIS/login/image/exp"+num+(num>2?".jpg":".png"));
+		$('#loginBtn').on('click', function() {
+			if ($("#name").val() && $("#password").val())
+				from_submit();
+			else
+				$.messager.alert('提示', '请输入登录名或密码');
+		})
+	});
+
+	function changePassword(){
+		var url;
+		url = basePath + "/userLogin/change_password";
+	}
+
+</script>
+<style type="text/css">
+	body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	/* 标签居右  */
+	th {
+		text-align: right;
+		height: 40px;
+	}
+	.logo img{
+		height:48px;
+	}
+</style>
+</head>
+
+<body>
+
+<div class="header-container" data-options="region:'north',border:false">
+	<div class="logo">
+		<img src="${basePath}/resources/BIS/login/image/logo.png">
+	</div>
+	<div class="system-name">
+		即时报告管理系统
+	</div>
+</div>
+<img id="backPicId" style="z-index:-1;width:100%;height:100%;"/>
+<div class="login-panel">
+	<form id="loginInputForm" >
+		<div>
+			<label for="name"><i class="fa fa-user"></i></label>
+			<input id="name" class="form-control" name="username" type="text" placeholder="登陆名" data-options="required: true"/>
+		</div>
+		<div>
+			<label for="password"><i class="fa fa-lock"></i></label>
+			<input id="password" name="password" type="password" placeholder="密码" data-options="required: true"/>
+		</div>
+		<div class="bottom-sec">
+			<a id="forgetPassword" href="change_password" onclick="changePassword()" class="forget-password">忘记密码?</a>
+			<button id="loginBtn" type="button" class="login-btn">登录</button>
+		</div>
+	</form>
+</div>
+</body>
+
+</html>

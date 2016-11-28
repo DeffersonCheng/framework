@@ -1,0 +1,158 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="easyui-panel" title="菜单" style="width: 100%; height: 100%;">
+	<form id="demoForm" method="post">
+		<input type="hidden" name="id" value="${org.id?if_exists}" />
+		<input type="hidden" name="version" value="${org.version?if_exists}" />
+		<table cellpadding="5">
+			<tr>
+				<td class="form_label">名称：</td>
+				<td class="from_text">
+					<input class="easyui-textbox form-input" prompt="请输入名称..." type="text" name="name" data-options="required:true" value="${org.name?if_exists}" />
+				</td>
+
+				<td class="form_label">编码：</td>
+				<td class="from_text">
+					<input class="easyui-textbox form-input" prompt="请输入编码..." type="text" name="code" data-options="required:true,validType:'EnglishCheck'" value="${org.code?if_exists}" />
+				</td>
+			</tr>
+			<tr>
+				<input type="hidden" id="pId" name="parent.id" />
+				<td class="form_label">层级编码：</td>
+				<td class="from_text">
+					<input class="easyui-textbox form-input" prompt="请输入层级编码..." type="text" name="levelCode" id="levelCode" data-options="required:true,validType:'numbers'" value="${org.levelCode?if_exists}" />
+				</td>
+
+			</tr>
+			<tr>
+				<td class="form_label">是否可用：</td>
+				<td class="from_text">
+					<input type="radio" class="easyui-radio" value="0" name="deleted" checked="checked" />
+					可用
+					<input type="radio" class="easyui-radio" value="1" name="deleted" />
+					不可用
+				</td>
+			</tr>
+		</table>
+	</form>
+	<div class="dialog-button messager-button">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelForm()">取消</a>
+	</div>
+</div>
+<script>
+	var deleted = '${org.deleted?default(0)}';
+	$(document).ready(function() {
+		$("input[name=deleted][value=" + deleted + "]").attr("checked", true)
+		var tab = $('#menuTitle').tabs('getSelected'); // 获取选择的面板
+		var index = $('#menuTitle').tabs('getTabIndex', tab);
+		$("#demoForm").attr("id", "demoForm" + index);
+		if (nodeObj && index == 0) {
+			$("#pId").val(nodeObj.id);
+			$("#pName").val(nodeObj.text);
+			$("#levelCode").val(addTree());
+		}
+	});
+	function submitForm() {
+		if (nodeObj) {
+			var tab = $('#menuTitle').tabs('getSelected'); // 获取选择的面板
+			var index = $('#menuTitle').tabs('getTabIndex', tab);
+			if (index == 2) {
+				remove();
+			} else if (index == 0) {
+				var num = "000001";
+				addOrEdit(num, index);
+			} else if (index == 1) {
+				if (parseInt(nodeObj["levelCode"])) {//判断级别
+					addOrEdit(nodeObj["levelCode"], index);
+				} else {
+					$.messager.alert('提示', '根节点无法修改!');
+				}
+			}
+		} else {
+			$.messager.alert('提示', '请选择要操作的节点!');
+		}
+	}
+	//添加业务
+	function addTree() {
+		if (nodeObj["levelCode"].length > 10) {
+			return null;
+		} else {
+			//生成父id 新编号
+			var treeChildren = $("#navPro").tree('getChildren', nodeObj.target);
+			if (parseInt(nodeObj["levelCode"])) {//添加第二级
+				if (treeChildren.length) {
+					return treeCode(treeChildren, 100);
+				} else {//第一条记录
+					return nodeObj["levelCode"] + "000001";
+				}
+			} else {
+				if (treeChildren.length) {
+					return treeCode(treeChildren, 10);
+				} else {//第一条记录
+					return "000001";
+				}
+			}
+		}
+
+	}
+	//生成编号
+	function treeCode(treeChildren, codeLength) {
+		var num = 0;
+		$.each(treeChildren, function() {
+			if (this["levelCode"].length < codeLength) {
+				if (parseInt(this["levelCode"]) > num) {
+					num = parseInt(this["levelCode"]);
+				}
+			}
+		});
+		num++;
+		for (var i = 0; i < 5; i++) {
+			num = "0" + num;
+		}
+		;
+		return num;
+	}
+	function addOrEdit(levelCode, index) {
+		var flag = $('#demoForm').form('validate');
+		if (flag) {
+			ajaxPost(basePath + "/org/save_or_update", $("#demoForm"+index)
+					.serializeArray(), function(data, status) {
+				if (data.code == "01") {
+					$.messager.alert('提示', '保存成功！');
+					loadorgTreePro();
+				} else {
+					$.messager.alert('提示', '保存失败！');
+				}
+			});
+		}
+	}
+
+	function remove() {
+		var treeChildren = $("#navPro").tree('getChildren', nodeObj.target);
+		if (treeChildren.length) {
+			$.messager.alert('提示', '请先删除子菜单!');
+			return;
+		}
+		if (!parseInt(nodeObj["levelCode"])) {//添加第二级
+			$.messager.alert('提示', '根节点无法删除!');
+			return;
+		}
+		$.messager.confirm('确认框', '是否确认删除?', function(r) {
+			if (r) {
+				if (nodeObj) {
+					ajaxPost(basePath + "/org/delete", {
+						id : nodeObj["id"],
+						version : nodeObj['version']
+					}, function(data) {
+						if (data.code == "01") {
+							$.messager.alert('提示', '删除成功！');
+						}
+					});
+					loadorgTreePro();
+				}
+			}
+		});
+	}
+	function cancelForm() {
+		loadorgTreePro();
+	}
+</script>

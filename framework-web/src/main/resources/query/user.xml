@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<queryContext xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="query.xsd">
+	<query id="userQueryId" className="com.wdl.entity.rbac.UserEntity" pageList="[10,20,30]" pagesize="10" checkbox="true" showPage="true" order="id asc">
+		<column key="id" header="id" hidden="true" />
+		<column key="version" header="version" hidden="true" />
+		<column key="countMistake" header="countMistake" hidden="true" />
+		<column key="userName" header="用户名称" width="0.1" />
+		<column key="loginName" header="登陆名" align="center" width="0.1" />
+		<column key="email" header="邮箱" align="center" width="0.15" />
+		<column key="mobile" header="联系电话" align="center" width="0.15" />
+		<column key="phone" header="座机电话" align="center" width="0.15" />
+		<column key="isdel" header="当前状态" align="center" width="0.15" callback="delCallback" />
+		<column key="oper" header="操作" align="center" width="0.2" callback="operCallback" />
+	</query>
+</queryContext>

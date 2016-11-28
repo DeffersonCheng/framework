@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="expires" content="0">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<title>即时报告管理系统</title>
+<link rel="stylesheet" type="text/css" href="${basePath}/resources/common/main/css/main.css"/>
+<link rel="stylesheet" type="text/css" href="${basePath}/resources/common/main/css/menu.css"/>
+<link rel="shortcut icon" type="image/x-icon" href="${basePath}/resources/BIS/main/image/logo.ico" media="screen" />
+<link rel="stylesheet" type="text/css" href="${basePath}/resources/common/dialog/css/model_dialog.css">
+<script type="text/javascript" src="${basePath}/resources/libs/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="${basePath}/resources/libs/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${basePath}/resources/libs/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="${basePath}/resources/libs/easyui/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${basePath}/resources/common/base/js/easyui-ztree.js"></script>
+<script type="text/javascript" src="${basePath}/resources/common/base/js/base.js"></script>
+<script type="text/javascript" src="${basePath}/resources/common/main/js/main.js"></script>
+<script type="text/javascript" src="${basePath}/resources/table/query/table.js"></script>
+<script type="text/javascript" src="${basePath}/resources/common/base/js/json2.js"></script>
+<script type="text/javascript" src="${basePath}/resources/common/base/js/area.js"></script>
+<script type="text/javascript" src="${basePath}/resources/common/base/js/validation.js"></script>
+<script type="text/javascript" src="${basePath}/resources/common/main/js/menu.js"></script>
+<script type="text/javascript" src="${basePath}/resources/common/dialog/js/model_dialog.js"></script>
+<link rel="stylesheet" type="text/css" href="${basePath}/resources/libs/font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="${basePath}/resources/libs/easyui/themes/bootstrap/easyui.css"/>
+<link rel="stylesheet" type="text/css" href="${basePath}/resources/libs/easyui/themes/icon.css"/>
+<script>
+	var basePath = "${basePath}";
+
+	$(function() {
+		var hashUrl = location.hash.replace('#', '');
+		if (hashUrl) {
+			$("#mainDiv").load(basePath + hashUrl);
+		} else {
+			$("#mainDiv").load(basePath + "/dashboard");
+		}
+		$('#menuContainer').MenuToolBar({
+			url : basePath + "/menu/getMenuList"
+		});
+		var count = '${count?default(0)}';
+		if (count > 0) {
+			$("#messageReadIco").css("color", "red")
+			$("#messageReadText").css("color", "red")
+		}
+	});
+	function dashboard() {
+		$("#mainDiv").load(basePath + "/dashboard");
+	}
+	function showMenu() {
+		$('.dropdown-menu').show();
+
+	}
+	function hideMenu() {
+		$('.dropdown-menu').hide();
+	}
+	function profile() {
+
+		loadPage(basePath + "/user/user_information?id=${id}");
+	}
+	function changePassword() {
+		loadPage("userLogin/into_update_password");
+	}
+	　document.createElement('header');
+	 document.createElement('nav');
+	 document.createElement('footer');
+	 document.createElement('section');
+	 /**
+	  * 以下是菜单栏滚动@Defferson.Cheng
+	  */
+	 var top_static=60;
+	 $(function(){
+	 	$('.menu-container').on("mousewheel DOMMouseScroll", function (e) {
+	   	  	var delta = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
+	                (e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1));              // firefox
+	        var mtop=$('.menu-container>ul').css("margin-top");
+			mtop = Number(mtop.substring(0, mtop.indexOf("p")));
+		    if (delta > 0) {
+				if (mtop<0){
+					mtop=(mtop=mtop+60)<=0?0:mtop;
+					$('.menu-container>ul').css("margin-top",mtop+"px");
+				}
+		    } else if (delta < 0) {
+		    	var min=$('.menu-container').height()-$('.menu-container>ul').height()-60;
+		        if (mtop>min){
+					mtop=(mtop=mtop-60)<=min?min:mtop;
+					$('.menu-container>ul').css("margin-top",mtop+"px");
+				}
+		    }
+		});
+	 });
+</script>
+<!-- 用于防止点击劫持 -->
+<style> html { display:none; } </style> <script> if (self == top) { document.documentElement.style.display = 'block'; } else { top.location = self.location; } </script>
+</head>
+<body>
+	<div class="main-container">
+		<div class="brand">
+			<img src="${basePath}/resources/BIS/base/img/logoem.png" /> <input id="csrfToken" type="hidden" value="csrfToken" />
+		</div>
+		<header>
+			<div class="header-container">
+				<div class="logo">
+					<img src="${basePath}/resources/BIS/base/img/logoe.png" />
+				</div>
+				<div class="system-name">即时报告管理系统</div>
+				<div class="profile">
+					<ul onmouseover="showMenu()" onmouseout="hideMenu()">
+						<!-- <li onclick="messageRead()"><a href="#"><i class="fa fa-envelope fa-lg"></i><span>站内信</span></a></li> -->
+						<li><a href="#"><i class="fa fa-user fa-lg"></i><span>${userName}</span><span class="caret"></span></a>
+							<ul class="dropdown-menu" onclick="showMenu()">
+								<li><a href="javaScript:void(0)" onClick="dashboard()"><i class="fa fa-home"></i>首页</a></li>
+								<li class="divider"></li>
+								<li><a href="javaScript:void(0)" onClick="profile()"><i class="fa fa-smile-o"></i>个人信息</a></li>
+								<li class="divider"></li>
+								<li><a href="#" onclick="changePassword()"><i class="fa fa-key"></i>修改密码</a></li>
+								<li class="divider"></li>
+								<li><a href="${basePath}/userLogin/userLogout"><i class="fa fa-sign-out"></i>退出登录</a></li>
+							</ul></li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<nav>
+			<div id="menuContainer"></div>
+		</nav>
+		<section>
+			<div class="content-container">
+				<div id="mainDiv" style="height: 100%;"></div>
+			</div>
+		</section>
+		<footer>
+			<div class="footer">版权所有 益博睿商业信息咨询(北京)有限公司 京ICP备15003028号</div>
+		</footer>
+	</div>
+</body>
+</html>

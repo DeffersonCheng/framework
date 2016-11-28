@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<queryContext xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="query.xsd">
+	<query id="roleQueryId" className="com.wdl.entity.rbac.RoleEntity" pageList="[10,20,30]" pagesize="10" checkbox="true" showPage="true" order="id asc">
+		<column key="id" header="id" hidden="true" />
+		<column key="version" header="version" hidden="true" />
+		<column key="rowIndex" header="序号" align="center" width="0.1" />
+		<column key="name" header="角色名称" align="center" width="0.3" callback="nameCallback" />
+		<column key="code" header="角色编码" sortAble="true" align="center" width="0.3" />
+		<column key="isDel" header="是否启用" sortAble="false" align="center" width="0.1" callback="delCallback" />
+		<column key="button" header="操作" align="center" width="0.2" callback="buCallback" />
+
+	</query>
+</queryContext>

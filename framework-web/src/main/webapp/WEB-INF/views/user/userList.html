@@ -1,0 +1,133 @@
+<style type="text/css">
+.tree{padding-bottom:50px;}
+</style>
+<form id="searchForm" class="search_div">
+	<table style="width: 100%; text-align: left">
+		<tr>
+			<td class="page-title" width="20%;">
+				<span style="margin-left: 35px;">用户管理</span>
+			</td>
+			<td style="width: 15%; text-align: right">名称:</td>
+			<td style="width: 20%; text-align: left">
+				<input class="easyui-textbox textbox" type="text" name="userName" />
+			</td>
+			<td style="width: 15%; text-align: right">登录名:</td>
+			<td style="width: 20%; text-align: left">
+				<input class="easyui-textbox textbox" type="text" name="loginName" />
+			</td>
+			<td id="searchBtn" style="width: 10%; text-align: center;">
+				<a href="javascript:void(0)" onclick="onSearch()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+			</td>
+		</tr>
+	</table>
+</form>
+<table id="queryTable">
+</table>
+<script type="text/javascript">
+	$.parser.parse("#searchBtn");
+	var _userInfoGrid;
+	var _userInfoWin;
+	var _userRoleTreeWin;
+	$(function() {
+		_userInfoGrid = $("#queryTable").queryGrid({
+			queryId : "userQueryId",
+			searchForm : "searchForm",
+			addFunc : addOrEdit,
+			editFunc : addOrEdit
+		});
+	});
+	function nameCallback(value, row, index) {
+		return value;
+	}
+	function onSearch() {
+		_userInfoGrid.onSearch();
+	}
+	function addOrEdit(selecteds) {
+		var url;
+		if (selecteds) {
+			if(selecteds[0]){
+				url = basePath + "/user/userAddOrEdit?id=" + selecteds[0].id;
+			}else{
+				$.messager.alert('提示', '请选择要修改项！');
+				return false;
+			}
+		} else {
+			url = basePath + "/user/userAddOrEdit";
+		}
+		_userInfoWin = $('<div></div>').window({
+			onClose : function() {
+				$(this).window("destroy");
+			},
+			width : 600,
+			height : 400,
+			modal : true,
+			href : url,
+			title : "添加/修改"
+		});
+	}
+
+	function delCallback(val, obj) {
+		if (obj.isdel == 0) {
+			return '<div style="color:green">启用</div>';
+		} else if (obj.isdel == 1) {
+			return '<div style="color:red">禁用</div>';
+		}
+	}
+	function operCallback(val, obj) {
+		var html='';
+		html+='<div class="toolbar">';
+		html+='<a href="#" onclick="roleChack('+ obj.id+ ')" class="easyui-linkbutton" data-options="iconCls:"icon-redo">角色</a>';
+		if(obj.countMistake>=5){
+			html+='&nbsp&nbsp<a href="#" onclick="relieve('+ obj.id+ ')" class="easyui-linkbutton" data-options="iconCls:"icon-redo">解除锁定</a>';
+		}
+		html+='&nbsp&nbsp<a href="#" onclick="resetPassWord('+ obj.id+ ')" class="easyui-linkbutton" data-options="iconCls:"icon-redo">重置密码</a>';
+		html+='</div>';
+		return html;
+	}
+
+	function roleChack(obj) {
+		var url;
+		if (obj) {
+			url = basePath + "/user/userRoleChackUrl?id=" + obj;
+		}
+		_userRoleTreeWin = $('<div></div>').window({
+			onClose : function() {
+				$(this).window("destroy");
+			},
+			width : 600,
+			height : 400,
+			modal : true,
+			href : url,
+			title : "授权页面"
+		});
+
+	}
+	function relieve(obj){
+		if(obj){
+			ajaxPost(basePath + "/user/relieve",{id:obj},function(result){
+				if (result.code == "01") {
+					$.messager.alert('提示', '保存成功！');
+						onSearch();
+				} else if (result.code == "02"){ 
+					$.messager.alert('提示', '未知错误');
+				}
+			});
+		}
+	}
+	function resetPassWord(obj){
+		var url;
+		if (obj) {
+				url = basePath + "/user/resetPwd?id=" +obj;
+		}
+		_userInfoWin = $('<div></div>').window({
+			onClose : function() {
+				$(this).window("destroy");
+			},
+			width : 600,
+			height : 400,
+			modal : true,
+			href : url,
+			title : "修改密码"
+		});
+	}
+</script>

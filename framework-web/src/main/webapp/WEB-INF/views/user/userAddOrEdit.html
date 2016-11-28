@@ -1,0 +1,157 @@
+<style>
+.form_label {
+	width: 20%;
+}
+
+.from_text {
+	width: 30%;
+}
+
+.form-input {
+	width: 30%;
+}
+
+.easyui-panel {
+	position: relative;
+}
+
+.dialog-button {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+</style>
+<div class="easyui-panel" style="width: 100%; height: 100%;">
+	<form id="demoForm" method="post">
+		<input type="hidden" name="id" value="${UserEntity.id?if_exists}" />
+		<input type="hidden" name="version"
+			value="${UserEntity.version?if_exists}" />
+		<table cellpadding="5">
+			<tr>
+				<td class="form_label">用户名:</td>
+				<td class="from_text"><input class="easyui-textbox form-input"
+					prompt="请输入用户名" type="text" name="userName"
+					data-options="required:true,validType:'isNotBlank'"
+					value="${UserEntity.userName?if_exists}" /></td>
+				<td class="form_label">上级:</td>
+				<td class="from_text"><input class="easyui-combobox form-input"
+					prompt="请选择上级" name="parentCode"
+					data-options="url:'./user/ajaxGetParentUser',method:'get',valueField:'loginName',textField:'userName'"
+					value="${UserEntity.parentCode?if_exists}" /></td>
+			</tr>
+			<tr>
+				<td class="form_label">登陆名:</td>
+				<td class="from_text"><input class="easyui-textbox form-input"
+					prompt="请输入登陆名" type="text" name="loginName"
+					data-options="required:true,validType:['isNotBlank','loginName']"
+					value="${UserEntity.loginName?if_exists}" /></td>
+				<td class="form_label">邮箱:</td>
+				<td class="from_text"><input class="easyui-textbox form-input"
+					prompt="请输入邮箱" type="text" name="email"
+					data-options="required:true,validType:'email'"
+					value="${UserEntity.email?if_exists}" /></td>
+			</tr>
+			<tr>
+				<td class="form_label">电话号:</td>
+				<td class="from_text"><input class="easyui-textbox form-input"
+					prompt="请输入联系电话" type="text" name="phone"
+					data-options="required:true,validType:'phone'"
+					value="${UserEntity.phone?if_exists}" /></td>
+				<td class="form_label">手机号:</td>
+				<td class="from_text"><input class="easyui-textbox form-input"
+					prompt="请输入手机号" type="text" name="mobile"
+					data-options="required:true,validType:'Mobile'"
+					value="${UserEntity.mobile?if_exists}" /></td>
+			</tr>
+			<tr>
+			   <td class="form_label">部门:</td>
+				<td class="from_text"><select id="orgId" class="easyui-combobox" editable="false"  name="orgId"
+					style="width: 100%"  value="${UserEntity.orgId?if_exists}" prompt="请选择部门" data-options="required:true">
+				</select></td>
+				<td class="form_label">当前状态:</td>
+				<td><select id="isdel" class="easyui-combobox" name="isdel"
+					style="width: 100%"  value="${UserEntity.isdel?if_exists}" prompt="请选择状态" data-options="required:true">
+						<option value=""></option>
+						<option value="0">启用</option>
+						<option value="1">禁用</option>
+				</select></td>
+			</tr>
+
+		</table>
+	</form>
+	<div class="dialog-button messager-button">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			onclick="submitForm()">提交</a> <a href="javascript:void(0)"
+			class="easyui-linkbutton" onclick="cancelForm()">取消</a>
+	</div>
+</div>
+<script>
+$.extend($.fn.validatebox.defaults.rules, {
+    loginName: {
+		validator: function(value,param){
+			var patrn=/^[a-zA-Z]([a-zA-Z0-9]{0,15})$/; 
+			if (!patrn.exec(value)) return false ;
+			return true;
+		},
+		message: '账号需字母开头，只能填写英文和数字，长度为1-16位'
+    }
+});
+var isdel='${UserEntity.isdel?default(0)}';
+var orgId='${UserEntity.orgId?default(0)}';
+$(document).ready(function() {
+	if(isdel){
+		$("#isdel").val(isdel);
+	}
+	ajaxPost(basePath+"/org/view_by_deleted",null,function(data){
+		if(data.length>0){
+			var datas="[";
+			$.each(data,function(){
+				if(this.levelCode.length>6){
+					 datas +="{\"id\":\""+this.id+"\",\"name\":\"→"+this.name+"\"},"; 
+				}else{
+					 datas +="{\"id\":\""+this.id+"\",\"name\":\""+this.name+"\"},"; 
+				}
+			});
+			datas=datas.substring(0,datas.length-1);
+			datas +="]";
+			datas=eval(datas);
+			datas[0].selected=true;
+			$('#orgId').combobox({
+				data:datas,
+				valueField:'id', 
+				textField:'name',
+				onLoadSuccess : function(){
+					if(orgId!=0 && orgId.length>0){
+						$("#orgId").combobox('setValues',orgId);
+					}
+				}
+			});
+		}
+	});
+});
+	function submitForm() {
+		if($("#demoForm").form('validate')){
+			ajaxPost(basePath + "/user/saveOrUpdate",$("#demoForm").serializeArray(),function(result){
+				if (result.code == "01") {
+					$.messager.alert('提示', '保存成功！');
+					if (_userInfoWin) {
+						onSearch();
+						_userInfoWin.window('destroy');
+					}
+				} else if (result.code == "02"){ 
+					$.messager.alert('提示', '已存在该登陆名');
+				}else if (result.code == "03"){ 
+					$.messager.alert('提示', '请填写必要信息');
+				}else{
+					$.messager.alert('提示', '保存失败！');
+				}
+			});
+		}
+	}
+	function cancelForm() {
+		if (_userInfoWin) {
+			_userInfoWin.window('destroy');
+		}
+	}
+</script>

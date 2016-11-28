@@ -1,0 +1,6 @@
+INSERT INTO "t_org" ("id", "create_date_time", "update_date_time", "version", "code", "levelcode", "name", "parentid", "remark", "deleted") VALUES (1, NULL, NULL, 1, 'MOVEMENT', '000001', '运作', NULL, NULL, 0);
+INSERT INTO "t_org" ("id", "create_date_time", "update_date_time", "version", "code", "levelcode", "name", "parentid", "remark", "deleted") VALUES (2, NULL, NULL, 1, 'CUSTOMERSERVICE', '000002', '客服', NULL, NULL, 0);
+INSERT INTO "t_org" ("id", "create_date_time", "update_date_time", "version", "code", "levelcode", "name", "parentid", "remark", "deleted") VALUES (3, NULL, NULL, 2, 'OPERATION', '000003', '运维', NULL, NULL, 0);
+INSERT INTO "t_org" ("id", "create_date_time", "update_date_time", "version", "code", "levelcode", "name", "parentid", "remark", "deleted") VALUES (229026, NULL, NULL, 1, 'caigou', '000004', '采购', NULL, NULL, 0);
+INSERT INTO "t_org" ("id", "create_date_time", "update_date_time", "version", "code", "levelcode", "name", "parentid", "remark", "deleted") VALUES (238045, '2016-8-25 20:51:34', '2016-8-25 20:51:34', 0, 'E20160818', '000005', '翻译部门', NULL, NULL, 0);
+INSERT INTO "t_org" ("id", "create_date_time", "update_date_time", "version", "code", "levelcode", "name", "parentid", "remark", "deleted") VALUES (249369, '2016-8-31 15:34:04', '2016-8-31 15:34:04', 0, 'IT', '000006', 'IT技术部', NULL, NULL, 0);

@@ -1,0 +1,14 @@
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (1, NULL, '2016-8-16 10:52:50', 1, 'super-admin', 0, '超级管理员');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (2, '2016-3-24 13:24:32', '2016-3-24 13:24:32', 0, 'admin', 0, '普通管理');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (3, '2016-4-21 15:27:41', '2016-4-21 15:27:41', 0, 'EXPERIAN', 0, 'EXPERIAN');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (4, '2016-4-21 15:27:51', '2016-4-21 15:27:51', 0, 'OUTSOURCING', 0, 'OUTSOURCING');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (5, '2016-5-12 16:18:23', '2016-9-21 11:36:25.821', 1, 'Operation Person', 0, '运作人员');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (6, '2016-5-12 16:18:37', '2016-9-20 21:54:28.563', 1, 'Operation Manager', 0, '运作经理');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (2372, NULL, NULL, 2, 'Customer Services', 0, '客服');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (136858, '2016-7-29 11:30:13', '2016-7-29 11:30:13', 0, 'YWRY', 0, '运维人员');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (229027, '2016-8-17 22:21:06', '2016-8-18 22:01:49', 4, 'CGJL', 0, '采购经理');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (229041, '2016-8-17 22:32:47', '2016-9-21 11:36:01.333', 1, 'Customer Manager', 0, '客服经理');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (238019, '2016-8-25 20:46:09', '2016-8-25 20:46:09', 0, 'experian_translate_manager', 0, '翻译经理');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (238028, '2016-8-25 20:47:57', '2016-8-25 20:47:57', 0, 'supplier_translate_manager', 0, '供应商翻译经理');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (238041, '2016-8-25 20:50:13', '2016-8-25 20:50:13', 0, 'interpreter', 0, '翻译人员');
+INSERT INTO "t_role" ("id", "create_date_time", "update_date_time", "version", "code", "isdel", "name") VALUES (249372, '2016-8-31 15:38:25', '2016-8-31 15:38:25', 0, 'admin_1', 0, '系统管理员');

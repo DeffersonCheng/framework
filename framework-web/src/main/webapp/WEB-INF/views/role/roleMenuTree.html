@@ -1,0 +1,130 @@
+<style>
+.easyui-panel {
+	position: relative;
+}
+
+.dialog-button {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+</style>
+<div class="easyui-panel" style="height: 100%;">
+	<div style="height: 320px;; overflow: auto;">
+		<ul id="tt" class="easyui-tree" style="margin-bottom:50px;"></ul>
+	</div>
+
+	<div class="dialog-button messager-button">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="getChecked()">提交</a> <a href="javascript:void(0)" class="easyui-linkbutton" onclick="cancelForm()">取消</a>
+	</div>
+</div>
+<table id="queryTable">
+</table>
+<script type="text/javascript">
+	var roleId = '${id}';
+	var ids = [];
+	var dids = [];
+	var dids_id = [];
+	$(function() {
+		var treeData = "";
+		$.post(basePath + "/role/roleMenuChacks", {
+			'roleId' : roleId
+		}, function(data) {
+			treeIni(data)
+		})
+		function treeIni(obj) {
+			$("#tt").tree(
+					{
+						data : obj,
+						checkbox : true,
+						cascadeCheck : false,
+						onCheck : function(node, checked) {
+							if (checked) {
+								isCheckeds(node);
+								var parentNode = $("#tt").tree('getParent',
+										node.target);
+								if (parentNode != null) {
+									$("#tt").tree('check', parentNode.target);
+								}
+
+							} else {
+								isNotCheckeds(node);
+								var childNode = $("#tt").tree('getChildren',
+										node.target);
+
+								if (childNode.length > 0) {
+									for (var i = 0; i < childNode.length; i++) {
+										$("#tt").tree('uncheck',
+												childNode[i].target);
+									}
+								}
+							}
+						}
+					});
+		}
+
+	});
+
+	Array.prototype.indexOf = function(val) {
+		for (var i = 0; i < this.length; i++) {
+			if (this[i] == val)
+				return i;
+		}
+		return -1;
+	};
+	Array.prototype.remove = function(val) {
+		var index = this.indexOf(val);
+		if (index > -1) {
+			this.splice(index, 1);
+		}
+	};
+	function removal(num_id) {
+		var n = []; //一个新的临时数组
+		for (var i = 0; i < num_id.length; i++) //遍历当前数组
+		{
+			//如果当前数组的第i已经保存进了临时数组，那么跳过，
+			//否则把当前项push到临时数组里面
+			if (n.indexOf(num_id[i]) == -1)
+				n.push(num_id[i]);
+		}
+		return n;
+	}
+	function isCheckeds(node) {//勾选
+		if (!node["dataChecked"]) { //数据库未勾选
+			ids.push(node["id"]);
+		} else {
+			dids.remove(node["id"]);
+		}
+	};
+	function isNotCheckeds(node) {//取消勾选
+		if (!node["dataChecked"]) { //数据库未勾选
+			ids.remove(node["id"]);
+		} else {
+			dids.push(node["id"]);
+		}
+	};
+	function getChecked() {
+		ids = removal(ids);
+		dids = removal(dids);
+		$.post(basePath + '/role/roleMenuUpdate', {
+			'trueCheck' : ids + "",
+			'falseChack' : dids + "",
+			'roleId' : roleId
+		}, function(data) {
+			if (data.code == "01") {
+				if (_roleWin) {
+					_roleWin.window('destroy');
+				}
+				$.messager.alert('提示', '保存成功！');
+			} else {
+				$.messager.alert('提示', '保存失败！');
+			}
+		})
+	}
+	function cancelForm() {
+		if (_roleWin) {
+			_roleWin.window('destroy');
+		}
+	}
+</script>

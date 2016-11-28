@@ -1,0 +1,41 @@
+
+<div class="easyui-panel" style="width: 100%; height: 100%;">
+	<form id="demoForm" method="post">
+		<table cellpadding="5">
+			<td class="page-title" width="20%;">
+				<span style="margin-left: 35px;">个人信息</span>
+			</td>
+			<tr>
+				<td class="form_label">用户名:</td>
+				<td class="from_text">
+				${UserEntity.userName?if_exists}
+				</td>
+				<td class="form_label">邮箱:</td>
+				<td class="from_text">
+				${UserEntity.email?if_exists}
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">登陆名:</td>
+				<td class="from_text">
+				${UserEntity.loginName?if_exists}
+				</td>
+				<td class="form_label">电话号:</td>
+				<td class="from_text">
+				${UserEntity.phone?if_exists}
+				</td>
+			</tr>
+			<tr>
+				<td class="form_label">手机号:</td>
+				<td class="from_text">
+				${UserEntity.mobile?if_exists}
+				</td>
+				<td class="form_label">部门:</td>
+				<td class="from_text">
+				${org.name?if_exists}
+				</td>
+			</tr>
+
+		</table>
+	</form>
+</div>

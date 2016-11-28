@@ -1,0 +1,126 @@
+<style>
+.easyui-panel {
+	position: relative;
+}
+
+.dialog-button {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+
+</style>
+<div class="easyui-panel" style=" height: 100%;">
+   <div style="height: 320px;; overflow: auto;">
+		<ul id="tt" class="easyui-tree"></ul>
+		</div>
+
+	<div class="dialog-button messager-button">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			onclick="getChecked()">提交</a> <a href="javascript:void(0)"
+			class="easyui-linkbutton" onclick="cancelForm()">取消</a>
+	</div>
+	</div>
+<table id="queryTable">
+</table>
+ <script type="text/javascript">
+ var userId='${userId}';
+		var ids = [];//选中的
+		var dids = [];//没有选中的
+        $(function () {
+        	var treeData="";
+	       	 $.post(basePath+'/user/userRoleChacks',{'userId':userId},function(data){
+	       		  treeData ='[';
+	       		  for(var i=0 ;i<data.length;i++){
+	       			  var isChack=data[i].isChack==1?true : false;
+	       			  treeData +='{"code":"'+data[i].code+'","id":"'+data[i].id+'","text": "'+data[i].name+'","checked":'+isChack+',"ischecked":'+isChack+'},'
+	       	  }
+	       		  treeData=treeData.substr(0,treeData.length-1);
+	       		  treeData +=']';
+	       		  treeData=JSON.parse(treeData);
+	       		  treeIni(treeData)
+	       	   })
+        	function treeIni(obj){
+        		$("#tt").tree({
+                    data: obj,
+                    checkbox: true,
+                    cascadeCheck: false,
+                    onCheck: function (node, checked) {
+                        if (checked) {
+                        	isCheckeds(node);
+                            var parentNode = $("#tt").tree('getParent', node.target);
+                            if (parentNode != null) {
+                                $("#tt").tree('check', parentNode.target);
+                            }
+                        }else{
+                        	isNotCheckeds(node)
+                        	var parentNode = $("#tt").tree('getParent', node.target);
+                            if (parentNode != null) {
+                                $("#tt").tree('check', parentNode.target);
+                            }
+                        }
+                    }
+                });
+        	} 
+        });
+        Array.prototype.indexOf = function(val) {
+        	for (var i = 0; i < this.length; i++) {
+        	if (this[i] == val) return i;
+        	}
+        	return -1;
+        	};
+        	Array.prototype.remove = function(val) {
+        		var index = this.indexOf(val);
+        		if (index > -1) {
+        		this.splice(index, 1);
+        		}
+        		};
+     		function removal(num_id){
+     			var n = []; //一个新的临时数组
+    			for(var i = 0; i < num_id.length; i++) //遍历当前数组
+    			{
+    				//如果当前数组的第i已经保存进了临时数组，那么跳过，
+    				//否则把当前项push到临时数组里面
+    				if (n.indexOf(num_id[i]) == -1) n.push(num_id[i]);
+    			}
+    			return n;
+     		}
+    	function isCheckeds(node){//勾选
+    		if(!node["ischecked"]){  //数据库未勾选
+    			ids .push(node["id"]);
+    			
+    		}else{
+    			dids.remove(node["id"]);
+    		}
+    	};
+    	function isNotCheckeds(node){//取消勾选
+    		if(!node["ischecked"]){  //数据库未勾选
+    			ids.remove(node["id"]);
+    		}else{
+    			dids.push(node["id"]);
+    			
+    		}
+    	};
+    	function getChecked()
+        {
+    		ids=""+ids
+    		dids=""+dids;
+            $.post(basePath+'/user/userRole/userRoleUpdate',{'trueCheck':ids,'falseChack':dids,'userId':userId},function(data){
+				if (data.code == "01") {
+					$.messager.alert('提示', '保存成功！');
+					if (_userRoleTreeWin) {
+						_userRoleTreeWin.window('destroy');
+						onSearch();
+					}
+				} else {
+					$.messager.alert('提示', '保存失败！');
+				}
+            })
+        }
+    	function cancelForm() {
+    		if (_userRoleTreeWin) {
+    			_userRoleTreeWin.window('destroy');
+    		}
+    	}
+    </script>

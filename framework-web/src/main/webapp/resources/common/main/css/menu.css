@@ -1,0 +1,83 @@
+/**
+ * Created by WangShuo on 4/9/16.
+ */
+/* line 20, ../sass/menu.scss */
+.menu-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 110px;
+  background-color: #394043;
+  color: #FFFFFF;
+  font-size: 13px;
+}
+/* line 30, ../sass/menu.scss */
+.menu-container ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* line 36, ../sass/menu.scss */
+.menu-container li {
+  position: relative;
+}
+/* line 38, ../sass/menu.scss */
+.menu-container li ul {
+  background-color: #2C90DA;
+  position: absolute;
+  top: 0;
+  left: 110px;
+  width: 130px;
+  display: none;
+}
+/* line 50, ../sass/menu.scss */
+.menu-container li ul a {
+  text-align: left;
+}
+/* line 52, ../sass/menu.scss */
+.menu-container li ul a:hover {
+  color: #212121;
+}
+/* line 58, ../sass/menu.scss */
+.menu-container li ul i {
+  margin-right: 4px;
+}
+/* line 64, ../sass/menu.scss */
+.menu-container a {
+  text-align: center;
+  padding: 17px 10px;
+  display: block;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+/* line 70, ../sass/menu.scss */
+.menu-container a:hover {
+  background-color: #2C90DA;
+}
+/* line 74, ../sass/menu.scss */
+.menu-container a i {
+  margin-bottom: 2px;
+}
+
+/* line 80, ../sass/menu.scss */
+.item-click {
+  background-color: #2C90DA;
+}
+
+/* line 84, ../sass/menu.scss */
+.arrow-left {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid #EAEAEA;
+}

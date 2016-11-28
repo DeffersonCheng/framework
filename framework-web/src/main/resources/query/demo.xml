@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<queryContext xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="query.xsd">
+	<query id="demoQueryId" tableName="Demo列表"
+		className="com.wdl.entity.demo.DemoEntity t,com.wdl.entity.demo.DemoDetailEntity d"
+		join="t.id=d.demoId" pageList="[10,20,30]" pagesize="10" checkbox="true"
+		showPage="true" order="t.id asc">
+		<column key="d.id" header="id" hidden="true" />
+		<column key="d.version" header="version" hidden="true" />
+		<column key="rowIndex" header="序号" align="center" width="0.1" />
+		<column key="t.name" header="name" align="center" width="0.4" />
+		<column key="d.name" header="detail" align="center" width="0.5" />
+	</query>
+</queryContext>

@@ -1,0 +1,629 @@
+body {
+    font-family: 'Microsoft Yahei', Tahoma, Arial;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+/** 主页面容器 */
+.main-container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    background-color: #EAEAEA;
+}
+
+.main-container .brand {
+	z-index:100;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #39405F;
+    height: 60px;
+    width: 110px;
+    line-height: 60px;
+    text-align: right;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+}
+
+.brand > img {
+    vertical-align: middle;
+}
+
+.main-container > header {
+    position: absolute;
+    top: 0;
+    left: 110px;
+    right: 0;
+    height: 60px;
+}
+
+.main-container > nav {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    width: 110px;
+    z-index: 1;
+    background-color: #607D8B;
+}
+
+.main-container > section {
+    position: absolute;
+    top: 60px;
+    left: 110px;
+    right: 0;
+    bottom: 12px;
+    overflow: auto;
+    padding: 15px;
+    background-color: #EAEAEA;
+}
+
+.main-container > footer {
+    position: absolute;
+    bottom: 0;
+    left: 100px;
+    right: 0;
+}
+
+/* 登录界面幻灯片 */
+.login-slider {
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+}
+
+.login-slider > ul > li > img {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.login-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left:-175px;
+    margin-top:-90px;
+    z-index: 10;
+    background: rgba(255, 255, 255, .9);
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#E5ffffff,endColorstr=#E5ffffff);
+    border: 1px solid #DEDEDE; 
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    padding: 30px;
+    width: 350px;
+    height: 180px;
+}
+
+.login-panel div {
+    padding: 5px;
+}
+
+.login-panel label {
+    /*position: absolute;*/
+    /*left: 4px;*/
+    /*top: 6px;*/
+    /*margin-bottom: 10px;*/
+    display: inline-block;
+    width: 20px;
+}
+
+.login-panel input {
+    display: inline-block;
+    width: 300px;
+    height: 25px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.bottom-sec {
+    height: 30px;
+}
+
+.login-btn {
+    text-align: center;
+    padding: 6px 25px;
+    background-color: #2C90DA;
+    color: #ffffff;
+    border: 1px solid transparent;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background-color: #92130A;
+}
+
+.forget-password {
+    float: right;
+    background-color: transparent;
+    color: gray;
+    text-decoration: none;
+    vertical-align: middle;
+    line-height: 30px;
+}
+
+.easyui-tree {
+    padding: 5px;
+}
+
+.accordion-body {
+    height: auto;
+}
+
+.header-container {
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+    /*border-bottom: 1px solid #eee;*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+}
+
+.topToolBar {
+    background-color: #374850;
+    width: 100%;
+    height: 100%;
+}
+
+.logo {
+    /*margin-left: 10px;*/
+    float: left;
+    height: 60px;
+    line-height: 60px;
+}
+
+.logo > img {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.system-name {
+    float: left;
+    height: 60px;
+    line-height: 60px;
+    margin-left: 20px;
+    font-size: 20px;
+    /*color: white;*/
+}
+
+.profile {
+    float: right;
+    color: #ffffff;
+    margin-right: 20px;
+    font-size: 14px;
+    height: 60px;
+    line-height: 60px;
+
+}
+
+.profile a {
+    text-decoration: none;
+    /*color: #2B2B2B;*/
+    color: #000000;
+}
+
+.profile i {
+    margin: 0 2px;
+}
+
+.profile > ul {
+    list-style-type: none;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    line-height: 60px;
+}
+
+.profile > ul > li {
+    display: inline-block;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    margin-left: 10px;
+    position: relative;
+}
+
+.welcome {
+    float: right;
+    margin-right: 20px;
+    line-height: 50px;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 1em;
+    color: #3A3A3A;
+}
+
+.welcome a {
+    color: #369;
+    text-decoration: none;
+}
+
+.footer-panel {
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+.footer {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 0.8em;
+    color: #3A3A3A;
+    text-align: center;
+    width: 100%;
+    height: 12px;
+    line-height: 12px;
+    /*background-color: #EEEEEE;*/
+}
+
+.main-accordion {
+    min-height: 480px;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff !important;
+}
+
+.accordion-body {
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+.accordion-body > div {
+    padding: 2px !important;
+}
+
+.tree-node-selected {
+    /*background: #CCCCCC !important;*/
+    background: rgba(44, 144, 218, 1.0) !important;
+}
+
+.main-tabs {
+    min-width: 780px;
+    width: 100%;
+    height: 100%;
+}
+
+.main-menu {
+    width: 220px;
+    padding: 0 !important;
+    background-color: #ffffff !important;
+}
+
+.layout-panel-west > .panel-header {
+    background: #D2D6DE !important;
+}
+
+.btn-primary {
+    width: 70px;
+    color: #FFF !important;
+    background: #2C90DA !important;
+}
+
+.btn-primary .l-btn-text {
+	margin:0px !important;
+}
+
+.btn-primary :hover {
+    width: 70px;
+    background: #2C90DA;
+    color: #FFF;
+    margin-left:-8px;
+    text-align: center;
+}
+
+.btn-tool {
+    margin: 0 5px;
+}
+
+.content-container {
+    width: 100%;
+    height: 100%; 
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #eee;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+}
+
+.panelheader {
+    background-color: #394043 !important;
+}
+
+.panel-title {
+    /*color: #ffffff !important;*/
+}
+
+.dropdown-menu-div {
+    position: relative;
+    height: 100%;
+}
+
+/** 下拉菜单 */
+.dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 1px;
+    z-index: 9999;
+    display: none;
+    float: right;
+    min-width: 118px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #ffffff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.dropdown-menu > li > a {
+    display: block;
+    clear: both;
+    white-space: nowrap;
+    height: 30px;
+    padding: 0 10px;
+    line-height: 30px;
+    color: #000;
+    text-decoration: none;
+}
+
+.divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid \9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+/* form表单中的input的高度修改
+ * create by 王硕 2016-03-31
+   如对其它界面布局有影响,请注释掉本段样式
+ */
+
+.textbox {
+    height: 30px !important;
+}
+
+.textbox .textbox-prompt {
+    height: 24px;
+}
+
+.textbox .textbox-text {
+    line-height: 24px;
+}
+
+.textbox-icon {
+    height: 30px !important;
+}
+
+.combobox-item, .combobox-group {
+    line-height: 22px;
+}
+
+.l-btn-left {
+    padding: 0 8px !important;
+}
+
+.datagrid-toolbar, .datagrid-pager {
+    height: 46px !important;
+}
+
+.pagination-info {
+    height: 46px !important;
+    line-height: 46px !important;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+#queryTable {
+    width: 99.9%;
+}
+
+.full-height {
+    height: 40px;
+    line-height: 40px;
+}
+
+.search_div {
+    min-height: 40px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    background: transparent linear-gradient(to bottom, #FFF 0px, #FFF 100%) repeat-x scroll 0% 0%;
+    border-bottom: 1px solid #999;
+    margin-bottom:20px;
+}
+
+.page-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-left: 40px;
+}
+
+.login_form {
+    width: 400px;
+}
+
+.form_label {
+    width: 20%;
+}
+
+.from_text {
+    width: 30%;
+}
+
+.form-input {
+    width: 30%;
+}
+
+.form_label_2 {
+    width: 10%;
+}
+
+.from_text_2 {
+    width: 12%;
+}
+
+.form-input_2 {
+    width: 18%;
+}
+
+.tree-checkbox1 {
+	margin-top:5px;
+}
+
+.easyui-panel {
+    position: relative;
+}
+
+.dialog-button {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+.datagrid-header-row .datagrid-cell{
+	text-align:center !important;
+	font-size:12px !important;
+}
+
+.datagrid-cell {
+	font-size:12px !important;
+}
+/* img */
+/* line 1470, index.scss */
+.autonym-select-form-input[class$="form-file"] { width: 100%; vertical-align: top; }
+/* line 1472, index.scss */
+.autonym-select-form-input[class$="form-file"] .autonym-select-form-input-file { text-align: left; margin: 20px 0; }
+/* line 1476, index.scss */
+.autonym-select-form-input[class$="form-file"] label { width: 100%; text-align: left; }
+/* line 1479, index.scss */
+.autonym-select-form-input[class$="form-file"] .autonym-select-form-input-file-content { display: inline-block; width: 150px; height: 120px; background-color: #ccc; position: relative; border-radius: 5px; border-radius: 5px; overflow: hidden; }
+/* line 1482, index.scss */
+.autonym-select-form-input[class$="form-file"] .autonym-select-form-input-file-content img { position: absolute; left: 0; top: 0; display: none; }
+/* line 1485, index.scss */
+.autonym-select-form-input[class$="form-file"] .autonym-select-form-input-file-content small { text-indent: 0px; position: relative; left: -35px; display: none; }
+/* line 1489, index.scss */
+.autonym-select-form-input[class$="form-file"] .autonym-select-form-input-file-content label { display: inline-block; width: 100%; height: 25px; overflow: hidden; border-radius: 5px; position: absolute; left: 0; bottom: 0; color: #fff; line-height: 25px; background-color: #aaa; opacity: 0.6; filter: alpha(opacity=60); margin: 0; }
+/* line 1494, index.scss */
+.autonym-select-form-input[class$="form-file"] .autonym-select-form-input-file-content input[type="file"] { display: block; filter: alpha(opacity=0); z-index: 200; opacity: 0; position: relative; top: -32px; left: 0; width: 150px; cursor: pointer; }
+/* line 1499, index.scss */
+.autonym-select-form-input[class$="form-file"] .autonym-select-form-input-file-pre { overflow: hidden; width: 150px; height: 120px; background-color: #ccc; display: inline-block; }
+/* line 1503, index.scss */
+.autonym-select-form-input[class$="form-file"] ul { width: 200px; height: 40px; display: inline-block; text-indent: 0; position: relative; top: -50px; font-size: 12px; }
+.outTimeBg{
+	background:-webkit-linear-gradient(top,#f4f4f4,#ffffff);
+	background:-ms-linear-gradient(top,#f4f4f4,#ffffff);
+	background:-moz-linear-gradient(top,#f4f4f4,#ffffff);
+	background:-linear-gradient(top,#f4f4f4,#ffffff);
+}
+.outTimeBox{
+	overflow:hidden;
+	box-shadow:2px 2px 10px 2px rgba(0,0,0,0.3);
+}
+.outTimeBox .warnPic{
+	width:100px;
+	height:76px; 
+	float:left; 
+	background:url(../../base/img/warn.png) no-repeat; 
+	border-right:1px solid #d0d0d0;
+}
+.outTimeBox .warnWord{
+	float:left; 
+	padding-left:14px;
+}
+.warnWord p{
+	margin-bottom:30px;
+	margin-top:0px;
+}
+.outTimeBox .resend{
+	padding:5px 10px;
+	background:#dd0c05;
+	border-radius:5px; 
+	color:#ffffff; 
+	text-decoration:none;
+	font-size:14px; 
+	cursor:pointer;
+}
+.outTimeBox .resend .emailIcon{
+	width:12px;
+	height:12px;
+	display:inline-block;
+	background:url(../../base/img/email.png) no-repeat left center;	
+	background-size:12px 12px;
+	margin-right:10px;
+}
+.interpreter_table .page-title{
+	width:100%;
+	padding-bottom:10px;
+}
+.interpreter_table{width:96%; margin:0 auto;}
+.interpreter_table td{padding:2px 0px;}
+.interpreter_table .td_first{width:36%;}
+.interpreter_table.td_second{width:64%;}
+.interpreter_table .label{display:inline-block; width:100px;}
+.interpreter_table .input_select_Box{width:200px;}
+.threetd .td_first{width:33.3%;}
+.threetd .td_second{width:33.3%;}
+.threetd .td_third{width:33.3%;}
+.translate_manager_dispatch{margin-bottom:20px;}

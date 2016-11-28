@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<queryContext xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="query.xsd">
+	<query id="menuQueryId" className="com.wdl.entity.rbac.MenuEntity" pageList="[10,20,30]" pagesize="10" checkbox="true" showPage="true" order="code asc">
+		<column key="id" header="id" hidden="true" />
+		<column key="version" header="version" hidden="true" />
+		<column key="rowIndex" header="序号" align="center" width="0.1" />
+		<column key="name" header="名称" align="center" width="0.3" callback="nameCallback" />
+		<column key="url" header="地址" sortAble="true" align="center" width="0.4" />
+		<column key="code" header="代码" sortAble="true" align="center"  width="0.2" />
+	</query>
+</queryContext>

@@ -1,0 +1,122 @@
+<form id="searchForm" class="search_div">
+	<table style="width: 100%; text-align: left">
+		<tr>
+			<td class="page-title" width="20%;">
+				<span style="margin-left: 35px;">角色管理</span>
+			</td>
+			<td style="width: 15%; text-align: right">角色名称:</td>
+			<td style="width: 15%; text-align: left">
+				<input class="easyui-textbox textbox" type="text" name="name" />
+			</td>
+			<td style="width: 15%; text-align: right">角色编码:</td>
+			<td style="width: 15%; text-align: left">
+				<input class="easyui-textbox textbox" type="text" name="code" />
+			</td>
+			<td id="searchBtn" style="width: 10%; text-align: center;">
+				<a href="javascript:void(0)" onclick="onSearch()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+			</td>
+		</tr>
+	</table>
+</form>
+<table id="queryTable">
+</table>
+<div id="win"></div>
+<script type="text/javascript">
+	$.parser.parse("#searchBtn");
+	var _roleGrid;
+	var _roleWin;
+	$(function() {
+		_roleGrid = $("#queryTable").queryGrid({
+			queryId : "roleQueryId",
+			searchForm : "searchForm",
+			addFunc : addOrEdit,
+			editFunc : addOrEdit,
+			removeFunc : remove
+		});
+	});
+	function nameCallback(value, row, index) {
+		return value;
+	}
+	function delCallback(value, row, index) {
+		if (value == 0)
+			return '<div style="color:green">启用</div>';
+		else if (value == 1)
+			return '<div style="color:red">禁用</div>'
+	}
+	function buCallback(value, row, index) {
+		var id = row["id"];
+		var bu = "'icon-reload'";
+		return '<a href="javascript:roleChack(' + id
+				+ ')" class="easyui-linkbutton" data-options="iconCls:' + bu
+				+ '" style="width:80px">授权</a>';
+	}
+	function onSearch() {
+		_roleGrid.onSearch();
+	}
+	function addOrEdit(selecteds) {
+		var url;
+		if (selecteds) {
+			if (selecteds[0]) {
+				url = basePath + "/role/roleAddOrEdit?id=" + selecteds[0].id;
+			} else {
+				$.messager.alert('提示', '请选择修改项!');
+				return false;
+			}
+
+		} else {
+
+			url = basePath + "/role/roleAddOrEdit";
+		}
+		_roleWin = $('<div></div>').window({
+			onBeforeClose : function() {
+				if (_roleWin) {
+					_roleWin.window('destroy');
+				}
+			},
+			width : 600,
+			height : 300,
+			modal : true,
+			href : url,
+			title : "添加/修改"
+		});
+	}
+	function remove(selecteds) {
+		if (selecteds.length == 0) {
+			$.messager.alert('提示', '请选择需要删除的记录!');
+			return;
+		}
+		$.messager.confirm('确认框', '是否确认删除?', function(r) {
+			if (r) {
+				if (selecteds) {
+					ajaxPost(basePath + "/role/roleRemove", {
+						id : selecteds[0].id,
+						version : selecteds[0].version
+					}, function(data) {
+						if (data.code == "01") {
+							$.messager.alert('提示', '删除成功！');
+						}
+					});
+					onSearch();
+				}
+			}
+		});
+	}
+	function roleChack(obj) {
+		var url;
+		if (obj) {
+			url = basePath + "/role/roleMenu?id=" + obj;
+		}
+		_roleWin = $('<div></div>').window({
+			onBeforeClose : function() {
+				if (_roleWin) {
+					_roleWin.window('destroy');
+				}
+			},
+			width : 600,
+			height : 400,
+			modal : true,
+			href : url,
+			title : "授权页面"
+		});
+	}
+</script>

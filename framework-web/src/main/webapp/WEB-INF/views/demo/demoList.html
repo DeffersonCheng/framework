@@ -1,0 +1,89 @@
+<style>
+#queryTable {
+	width: 99.9%;
+	height: 100%;
+}
+.search_div {
+	min-height: 40px;
+	padding-top: 10px;
+	background: transparent linear-gradient(to bottom, #FFF 0px, #FFF 100%) repeat-x scroll 0% 0%;
+	border: 1px solid #F2F2F2;
+}
+
+</style>
+<form id="searchForm" class="search_div">
+	<table  style="width: 100%">
+		<tr>
+			<td style="width:15%;text-align:right">
+				name:
+			</td>
+			<td style="width:30%;text-align:left">
+				<input class="easyui-textbox" type="text" name="t.name" />
+			</td>
+			<td style="width:15%;text-align:right">
+				detail:
+			</td>
+			<td style="width:30%;text-align:left">
+				<input class="easyui-textbox" type="text" name="d.name" />
+			</td>
+			<td id="searchBtn" style="width:10%;text-align:center;">
+                <a href="javascript:void(0)" onclick="onSearch()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+            </td>
+		</tr>
+	</table>
+</form>
+<table id="queryTable">
+</table>
+<script type="text/javascript">
+	$.parser.parse("#searchBtn");
+	var _demoGrid;
+	var _demoWin;
+	$(function() {
+		_demoGrid = $("#queryTable").queryGrid({
+			queryId : "demoQueryId",
+			searchForm : "searchForm",
+			addFunc:addOrEdit,
+			editFunc:addOrEdit,
+			removeFunc:remove
+		});
+	});
+	function nameCallback(value, row, index) {
+		return value;
+	}
+	function onSearch(){
+		_demoGrid.onSearch();
+	}
+	function addOrEdit(selecteds){
+		var url;
+		if(selecteds){
+			url=basePath+"/demo/demoAddOrEdit?id="+selecteds[0].id;
+		}else{
+			url=basePath+"/demo/demoAddOrEdit";
+		}
+		_demoWin=$('<div></div>').window({
+            width: 600,
+            height: 400, 
+            modal: true,
+            href: url,
+            title: "添加/修改"
+        });
+	}
+	function remove(selecteds){
+		if(selecteds.length==0){
+			$.messager.alert('提示','请选择需要删除的记录!');
+			return;
+		}
+		$.messager.confirm('确认框','是否确认删除?',function(r){
+            if (r){
+                if(selecteds){
+                	ajaxPost(basePath+"/demo/demoRemove", {id:selecteds[0].id,version:selecteds[0].version}, function(data){
+                		if(data.code=="01"){
+		                    $.messager.alert('提示','删除成功！');
+                		}
+                	});
+                    onSearch();
+                }
+            }
+        });
+	}
+</script>

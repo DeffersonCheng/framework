@@ -1,0 +1,103 @@
+<style>
+.form_label {
+	width: 20%;
+}
+
+.from_text {
+	width: 30%;
+}
+
+.form-input {
+	width: 30%;
+}
+
+.easyui-panel {
+	position: relative;
+}
+
+.dialog-button {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+</style>
+<div class="easyui-panel" style="width: 100%; height: 100%;">
+	<form id="demoForm" method="post">
+		<input type="hidden" name="id" value="${demoEntity.id?if_exists}"/>
+		<input type="hidden" name="version" value="${demoEntity.version?if_exists}"/>
+		<table cellpadding="5">
+			<tr>
+				<td class="form_label">名称:</td>
+				<td class="from_text"><input class="easyui-textbox form-input"
+					prompt="请输入名称..." type="text" name="name" data-options="required:true" value="${demoEntity.name?if_exists}"/></td>
+				<td class="form_label">年龄:</td>
+				<td class="from_text"><input class="easyui-textbox form-input"
+					prompt="请输入年龄..." type="text" name="age"
+					data-options="required:true"  value="${demoEntity.age?if_exists}"/></td>
+			</tr>
+			<tr>
+				<td class="form_label">性别:</td>
+				<td><select id="sex" class="easyui-combobox" name="sex"
+					style="width: 100%"  value="${demoEntity.sex?if_exists}" prompt="请选择性别..." data-options="required:true">
+						<option value=""></option>
+						<option value="男">男</option>
+						<option value="女">女</option>
+				</select></td>
+				<td class="form_label">国家:</td>
+				<td><select id="country" class="easyui-combobox" name="country"
+					prompt="请选择国家..."  value="${demoEntity.country?if_exists}" style="width: 100%" data-options="required:true">
+						<option value=""></option>
+						<option value="中国">中国</option>
+						<option value="中国">美国</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td class="form_label">邮箱:</td>
+				<td class="from_text"><input class="easyui-textbox form-input"
+					prompt="请输入邮箱..." type="text" name="email"
+					data-options="required:true,validType:'email'"  value="${demoEntity.email?if_exists}"/></td>
+				<td class="form_label">生日:</td>
+				<td class="from_text"><input class="easyui-datebox form-input"
+					prompt="请选择生日..." name="birthday" data-options="required:true"  value="${demoEntity.birthDayStr?if_exists}"/></td>
+			</tr>
+		</table>
+	</form>
+	<div class="dialog-button messager-button">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			onclick="submitForm()">提交</a> <a href="javascript:void(0)"
+			class="easyui-linkbutton" onclick="cancelForm()">取消</a>
+	</div>
+</div>
+<script>
+	var country='${demoEntity.country?default("")}';
+	var sex='${demoEntity.sex?default("")}';
+	$(document).ready(function() {
+		if(country){
+			$("#country").val(country);
+		}
+		if(sex){
+			$("#sex").val(sex);
+		}
+	});
+	function submitForm() {
+		if($("#demoForm").form('validate')){
+			ajaxPost( basePath + "/demo/saveOrUpdate",$("#demoForm").serializeArray(),function(result){
+				if (result.code == "01") {
+					$.messager.alert('提示', '保存成功！');
+					if (_demoWin) {
+						onSearch();
+						_demoWin.window('destroy');
+					}
+				} else {
+					$.messager.alert('提示', '保存失败！');
+				}
+			});
+		}
+	}
+	function cancelForm() {
+		if (_demoWin) {
+			_demoWin.window('destroy');
+		}
+	}
+</script>

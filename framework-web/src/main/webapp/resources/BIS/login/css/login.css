@@ -1,0 +1,425 @@
+body {
+    font-family: 'Microsoft Yahei', Tahoma, Arial;
+}
+
+/* 登录界面幻灯片 */
+.login-slider {
+    width: 100%;
+}
+
+.login-slider > ul > li > img {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.login-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, .9);
+    border: 1px solid #DEDEDE;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    padding: 30px;
+    /*width: 500px;*/
+    /*height: 300px;*/
+}
+
+.login-panel div {
+    padding: 5px;
+}
+
+.login-panel label {
+    /*position: absolute;*/
+    /*left: 4px;*/
+    /*top: 6px;*/
+    /*margin-bottom: 10px;*/
+    display: inline-block;
+    width: 20px;
+}
+
+.login-panel input {
+    display: inline-block;
+    width: 300px;
+    height: 25px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.bottom-sec {
+    height: 30px;
+}
+
+.login-btn {
+    text-align: center;
+    padding: 6px 25px;
+    background-color: #FE680D; 
+    color: #ffffff;
+    border: 1px solid transparent;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.login-btn:hover {
+    background-color: #92130A;
+}
+
+.forget-password {
+    float: right;
+    background-color: transparent;
+    color: gray;
+    text-decoration: none;
+    vertical-align: middle;
+    line-height: 30px;
+}
+
+.easyui-tree {
+    padding: 5px;
+}
+
+.accordion-body {
+    height: auto;
+}
+
+.header-container {
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF !important;
+    border-bottom: 1px solid #999 !important;
+}
+
+.topToolBar {
+    background-color: #374850;
+    width: 100%;
+    height: 100%;
+}
+
+.logo {
+    margin-left: 40px;
+    float: left;
+    height: 50px;
+    line-height: 50px;
+}
+
+.logo > img {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.system-name {
+    float: left;
+    height: 50px;
+    line-height: 50px;
+    margin-left: 40px;
+    font-size: 20px;
+}
+
+.profile {
+    float: right;
+    color: #ffffff;
+    margin-right: 20px;
+    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+
+}
+
+.profile a {
+    text-decoration: none;
+    /*color: #2B2B2B;*/
+    color: white;
+}
+
+.profile i {
+    margin: 0 2px;
+}
+
+.profile > ul {
+    list-style-type: none;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    line-height: 50px;
+}
+
+.profile > ul > li {
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    margin-left: 10px;
+    position: relative;
+}
+
+.welcome {
+    float: right;
+    margin-right: 20px;
+    line-height: 50px;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 1em;
+    color: #3A3A3A;
+}
+
+.welcome a {
+    color: #369;
+    text-decoration: none;
+}
+
+.footer-panel {
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+.footer {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 0.8em;
+    color: #3A3A3A;
+    text-align: center;
+    width: 100%;
+    height: 12px;
+    line-height: 12px;
+    background-color: #EEEEEE;
+}
+
+.main-accordion {
+    min-height: 480px;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff !important;
+}
+
+.accordion-body {
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+.accordion-body > div {
+    padding: 2px !important;
+}
+
+.tree-node-selected {
+    /*background: #CCCCCC !important;*/
+    background: rgba(44, 144, 218, 1.0) !important;
+}
+
+.main-tabs {
+    min-width: 780px;
+    width: 100%;
+    height: 100%;
+}
+
+.main-menu {
+    width: 220px;
+    padding: 0 !important;
+    background-color: #ffffff !important;
+}
+
+.layout-panel-west > .panel-header {
+    background: #D2D6DE !important;
+}
+
+.btn-primary {
+    width: 70px;
+    color: #FFF !important;
+    background: #2C90DA !important;
+
+}
+
+.btn-primary :hover {
+    width: 70px;
+    background: #2C90DA;
+    color: #FFF;
+    padding-left: -20px;
+    text-align: center;
+}
+
+.btn-tool {
+    margin: 0 5px;
+}
+
+.main-container {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff !important;
+}
+
+.dropdown-menu-div {
+    position: relative;
+    height: 100%;
+}
+
+/** 下拉菜单 */
+.dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 5px;
+    z-index: 9999;
+    display: none;
+    float: right;
+    min-width: 118px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #ffffff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.dropdown-menu > li > a {
+    display: block;
+    clear: both;
+    white-space: nowrap;
+    height: 30px;
+    padding: 0 10px;
+    line-height: 30px;
+    color: #000;
+    text-decoration: none;
+}
+
+.divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid \9;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+/* form表单中的input的高度修改
+ * create by 王硕 2016-03-31
+   如对其它界面布局有影响,请注释掉本段样式
+ */
+
+.textbox {
+    height: 30px !important;
+}
+
+.textbox .textbox-prompt {
+    height: 24px;
+}
+
+.textbox .textbox-text {
+    line-height: 24px;
+}
+
+.textbox-icon {
+    height: 30px !important;
+}
+
+.combobox-item, .combobox-group {
+    line-height: 22px;
+}
+
+.l-btn-left {
+    padding: 0 8px !important;
+}
+
+.datagrid-toolbar, .datagrid-pager {
+    height: 46px !important;
+}
+
+.pagination-info {
+    height: 46px !important;
+    line-height: 46px !important;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+#queryTable {
+    width: 99.9%;
+}
+
+.full-height {
+    height: 40px;
+    line-height: 40px;
+}
+
+.search_div {
+    min-height: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background: transparent linear-gradient(to bottom, #FFF 0px, #FFF 100%) repeat-x scroll 0% 0%;
+    border-bottom: 1px solid #999;
+}
+
+.page-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-left: 40px;
+}
+
+.login_form {
+    width: 400px;
+}
+
+.form_label {
+    width: 20%;
+}
+
+.from_text {
+    width: 30%;
+}
+
+.form-input {
+    width: 30%;
+}
+
+.easyui-panel {
+    position: relative;
+}
+
+.dialog-button {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+.datagrid-header-row .datagrid-cell{
+	text-align:center !important;
+}

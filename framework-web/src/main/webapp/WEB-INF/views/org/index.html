@@ -1,0 +1,102 @@
+
+<div class="easyui-layout" style="width: 100%; height: 100%;">
+	<div data-options="region:'west',iconCls:'icon-ok'" split="true" title="组织机构" style="width: 222px; padding: 5px; background: #eee;">
+		<ul id="navPro" class="easyui-tree"></ul>
+	</div>
+	<div data-options="region:'center',iconCls:'icon-ok'" title="操作" style="padding: 5px; background: #eee;" id="menuTitle"></div>
+</div>
+
+<script type="text/javascript">
+	$.parser.parse("#mainDiv");
+	var nodeObj = null;
+	$(function() {
+		tabs();
+		tabsAdd({
+			title : "添加",
+			iconCls : "icon-add",
+			href : basePath + "/org/edit/0",
+			selected : true
+		});
+		tabsAdd({
+			title : "修改",
+			iconCls : "icon-edit",
+			href : basePath + "/org/edit/0",
+			selected : false
+		});
+		tabsAdd({
+			title : "删除",
+			iconCls : "icon-cancel",
+			href : basePath + "/org/edit/0",
+			selected : false
+		});
+		loadorgTreePro();
+	});
+
+	function tabs() {
+		$('#menuTitle').tabs({
+			border : false,
+			closable : true,
+			onSelect : function(title, index) {
+				refreshTabs(index);
+			}
+		});
+	}
+	function tabsAdd(parm) {
+		$('#menuTitle').tabs('add', {
+			title : parm.title,
+			iconCls : parm.iconCls,
+			href : parm.href,
+			selected : parm.selected,
+		});
+	}
+
+	function loadorgTreePro() {
+		nodeObj = null;
+		ajaxPost(basePath + "/org/tree", null, function(data) {
+			if (data) {
+				treeIni(data);
+
+			}
+		});
+	}
+	//加载树
+	function treeIni(obj) {
+		$("#navPro").tree({
+			data : obj,
+			cascadeCheck : false,
+			onClick : function(node) {
+				if (12 <= node["levelCode"].length) {
+					$('.tabs-first').attr("style", "display:none");
+					$('.tabs-first').next().click();
+				} else {
+					$('.tabs-first').attr("style", "display:black");
+				}
+				nodeObj = node;
+				//addOrEdit(node["id"]);
+				var tab = $('#menuTitle').tabs('getSelected'); // 获取选择的面板
+				var index = $('#menuTitle').tabs('getTabIndex', tab);
+				//if(index){
+				refreshTabs(index);
+				//}
+			}
+		});
+	}
+	//刷新tabs面板
+	function refreshTabs(index) {
+		var tab = $('#menuTitle').tabs('getSelected');
+		if (nodeObj) {//选择了树节点
+			if (index) {//非新增
+				if (parseInt(nodeObj["levelCode"])) {//非根节点
+					tab.panel('refresh', basePath + '/org/edit/'
+							+ nodeObj["id"]);
+				} else {
+					tab.panel('refresh', basePath + '/org/edit/0');
+				}
+			} else {
+				tab.panel('refresh', basePath + '/org/edit/0');
+			}
+		} else {
+			tab.panel('refresh', basePath + '/org/edit/0');
+		}
+	}
+</script>
